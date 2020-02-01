@@ -17,8 +17,10 @@ Route::get('/', function () {
 });
 
 Route::get('posts/{post}', function (App\Post $post) {
-    $prev = App\Post::where('id', '<', $post->id)->orderBy('id','desc')->first();
+    $prev = App\Post::where('id', '<', $post->id)->orderBy('id', 'desc')->first();
     $next = App\Post::where('id', '>', $post->id)->orderBy('id')->first();
 
     return view('post', compact('post', 'prev', 'next'));
 });
+
+Route::get('/img/{path}', 'ImageController@show')->where('path', '.*');

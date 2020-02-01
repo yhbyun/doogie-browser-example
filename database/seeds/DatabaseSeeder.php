@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Symfony\Component\Yaml\Yaml;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +12,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Post::class, 3)->create();
+        foreach (glob(base_path('database/articles/*.md')) as $filepath) {
+            list($dummy, $meta, $contents) = explode("---\n", file_get_contents($filepath));
+            $yamlMeta = Yaml::parse($meta);
+            App\Post::create([
+                'title' => $yamlMeta['title'],
+                'content' => $contents,
+            ]);
+        }
     }
 }

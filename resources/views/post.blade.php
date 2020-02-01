@@ -20,6 +20,6 @@
     </header>
 
     <div class="content pt-8">
-        {{ $post->content }}
+        {{ $post->created_at }}...{{ $post->content }}
     </div>
 @endsection
