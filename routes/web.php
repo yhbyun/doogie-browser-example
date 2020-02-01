@@ -12,5 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $posts = App\Post::oldest()->get();
+    return view('welcome', compact('posts'));
+});
+
+Route::get('posts/{post}', function (App\Post $post) {
+    $prev = App\Post::where('id', '<', $post->id)->orderBy('id','desc')->first();
+    $next = App\Post::where('id', '>', $post->id)->orderBy('id')->first();
+
+    return view('post', compact('post', 'prev', 'next'));
 });
