@@ -13,7 +13,7 @@ class ImageController extends Controller
         $server = ServerFactory::create([
             'response' => app(LaravelResponseFactory::class),
             'source' => public_path('images'),
-            'cache' => public_path('images'),
+            'cache' => storage_path('app'),
             'cache_path_prefix' => '.cache',
         ]);
 
